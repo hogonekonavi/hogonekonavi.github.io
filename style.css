@@ -1,0 +1,751 @@
+/* ==========================
+   基本設定
+========================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family:
+    "Kiwi Maru",
+    "Yu Gothic",
+    "Meiryo",
+    sans-serif;
+  color: #443D42;
+  line-height: 1.8;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+/* ==========================
+   ヘッダー
+========================== */
+
+.site-header {
+  width: 100%;
+  min-height: 90px;
+  padding: 8px 4%;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+
+  background-color: #FFD9FF;
+  position: relative;
+  z-index: 100;
+}
+
+/* ロゴとサイト名 */
+
+.site-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.site-logo img {
+  width: 100px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* ナビゲーション */
+
+.global-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 22px;
+}
+
+.global-nav a {
+  font-size: 14px;
+  font-weight: bold;
+  white-space: nowrap;
+  transition: color 0.3s;
+}
+
+.global-nav a:hover {
+  color: #FF40FF;
+  text-decoration: underline;
+  text-decoration-color: #E8DFD8;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+/* パソコンではメニューボタンを隠す */
+
+.menu-toggle {
+  display: none;
+}
+
+
+/* ==========================
+   メインビジュアル
+========================== */
+
+/* =========================
+   スライドショー全体
+========================= */
+
+.hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 1272;
+  overflow: hidden;
+  padding: 0;
+  color: #FFD9FF;
+  text-align: center;
+}
+
+/* 各スライド */
+.hero-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s ease;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 1;
+}
+
+/* スライド画像 */
+.hero-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* =========================
+   画像に重ねる文字
+========================= */
+
+.hero-slide .hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 850px;
+  padding: 20px;
+  z-index: 2;
+}
+
+.hero-text-box {
+  display: table;
+  max-width: 90%;
+  margin: 0 auto 12px;
+  padding: 8px 20px;
+  background: rgba(233, 87, 155, 0.45);
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.hero-content h1 {
+  margin: 0 0 15px;
+  padding: 0;
+  background: none;
+  color: #FFD9FF;
+  font-size: clamp(24px, 3.2vw, 42px);
+  font-weight: 300;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+/* 見出しの補足文字 */
+.hero-content h1 .hero-subtitle {
+  display: inline-block;
+  font-size: 0.7em;
+  line-height: 1.4;
+}
+
+.hero-content p {
+  margin: 0 0 30px;
+  padding: 0;
+  background: none;
+  color: #FFD9FF;
+  font-size: clamp(14px, 1.8vw, 20px);
+  line-height: 2;
+}
+
+/* 1枚目の説明文だけ調整 */
+.hero-content p.hero-description {
+  font-size: clamp(12px, 1.5vw, 18px);
+  line-height: 1.5;
+  margin-bottom: 15px;
+}
+
+
+
+/* =========================
+   READ MORE・案内ボタン
+========================= */
+
+.hero-button {
+  display: inline-block;
+  min-width: 190px;
+  padding: 10px 30px;
+  border: 1px solid #FFD9FF;
+  border-radius: 4px;
+  color: #FFD9FF;
+  font-size: 16px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.hero-button:hover {
+  background-color: #FFD9FF;
+  color: #443D42;
+}
+
+/* =========================
+   左右の矢印
+========================= */
+
+.slide-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.45);
+  color: #FFD9FF;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.slide-arrow.prev {
+  left: 20px;
+}
+
+.slide-arrow.next {
+  right: 20px;
+}
+
+/* =========================
+   スライド切り替えインジケーター（横棒）
+========================= */
+
+/* PC用 */
+.slide-indicators {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+
+  display: flex;
+  gap: 12px;
+}
+
+.slide-indicators button {
+  width: 28px;
+  height: 4px;
+  padding: 0;
+
+  border: none;
+  border-radius: 0;
+  background: #FFD9FF;
+
+  cursor: pointer;
+}
+
+.slide-indicators button.active {
+  background: #FF40FF;
+}
+
+/* ==========================
+   コンテンツ
+========================== */
+
+.content-section {
+  width: 100%;
+  padding: 65px 5%;
+
+  text-align: center;
+  scroll-margin-top: 20px;
+}
+
+.content-section h2 {
+  max-width: 1100px;
+  margin: 0 auto 30px;
+  padding: 0 0 12px;
+
+  border-top: 2px solid #E8DFD8;
+
+  color: #FF40FF;
+  font-size: 28px;
+  font-weight: 400;
+  text-align: left;
+}
+
+/*.content-section:nth-of-type(even) {
+  background-color: #fafaf6;
+}
+
+/* セクションの画像 */
+
+.section-image {
+  display: block;
+  width: 100%;
+  max-width: 650px;
+  height: auto;
+
+   margin: 20px auto 30px;
+}
+
+/* 紹介文 */
+
+.section-text {
+  max-width: 1000px;
+  margin: 0 auto;
+
+  text-align: left;
+  font-size: 15px;
+}
+
+.section-text p {
+  margin: 0 0 20px;
+}
+
+/* 詳細ページへのボタン */
+
+.more-button {
+  display: inline-block;
+  margin: 15px 8px 0;
+  padding: 10px 25px;
+
+  border: 2px solid #E8DFD8;
+  border-radius: 4px;
+
+  color: #FF40FF;
+  font-size: 14px;
+
+  transition:
+    background-color 0.3s,
+    color 0.3s;
+}
+
+.more-button:hover {
+  background-color: #FF40FF;
+  color: #FFD9FF;
+}
+
+
+/* ==========================
+   フッター
+========================== */
+
+.site-footer {
+  padding: 30px 20px;
+  background-color: #FFD9FF;
+  text-align: center;
+  font-size: 13px;
+}
+
+.footer-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+
+  margin-bottom: 20px;
+}
+
+.footer-nav a:hover {
+  color: #FF40FF;
+  text-decoration: underline;
+  text-decoration-color: #E8DFD8;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+
+/* ==========================
+   スマートフォン対応
+========================== */
+
+@media screen and (max-width: 900px) {
+
+  .site-header {
+    min-height: 75px;
+    padding: 6px 5%;
+    border-bottom: none;
+    box-shadow: none;
+  }
+
+  .site-logo {
+  font-size: 21px;
+  gap: 8px;
+}
+
+.site-logo img {
+    width: 90px;
+    height: auto;
+  }
+
+  /* メニューボタン */
+
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+
+    width: 44px;
+    height: 44px;
+    padding: 8px;
+
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+
+    background-color: #443D42;
+  }
+
+  /* ナビゲーション */
+
+  .global-nav {
+  display: flex;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+
+  position: absolute;
+  top: calc(100% - 1px);
+  left: 0;
+  width: 100%;
+  padding: 10px 5% 22px;
+
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+
+  background-color: #FFD9FF;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.08);
+
+  transition:
+  opacity 0.9s ease,
+  transform 0.9s ease,
+  visibility 0.9s;
+}
+
+.global-nav.is-open {
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+  .global-nav a {
+  padding: 13px 5px;
+  border-bottom: none;
+  font-size: 15px;
+}
+
+  /* メインビジュアル */
+
+.hero {
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+}
+
+  .hero-content {
+    padding: 45px 15px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(27px, 6vw, 38px);
+  }
+
+  .hero-content p {
+    font-size: 15px;
+  }
+
+  .content-section {
+    padding: 50px 6%;
+  }
+
+  .content-section h2 {
+    font-size: 23px;
+  }
+
+  .section-text {
+    font-size: 14px;
+  }
+
+  .footer-nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+}
+
+
+/* ==========================
+   小さなスマートフォン
+========================== */
+
+@media screen and (max-width: 480px) {
+
+  .site-logo {
+  font-size: 19px;
+}
+
+.site-logo img {
+    width: 80px;
+    height: auto;
+  }
+
+  .hero-content h1 {
+    font-size: 27px;
+  }
+
+  .hero-content p {
+    font-size: 14px;
+  }
+
+  .hero-button {
+    min-width: 165px;
+    font-size: 14px;
+  }
+
+  .content-section h2 {
+    font-size: 21px;
+  }
+
+}
+
+
+/* 各ページのタイトル帯 */
+.page-heading {
+  width: 100%;
+  padding: 18px 15px;
+  background-color: #FF40FF; /* 仮の色。あとで変更 */
+  color: #FFD9FF;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.page-heading h1 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+.back-to-top {
+  position: fixed;
+  right: 25px;
+  bottom: 25px;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background-color: #FFD9FF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  text-decoration: none;
+  font-size: 30px;
+  transition: opacity 0.3s;
+}
+
+/* ピンクの猫の肉球 */
+.paw-print {
+  position: absolute;
+  bottom: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 36px;
+  height: 28px;
+  background:
+    radial-gradient(ellipse 10px 8px at 18px 22px, #FF40FF 98%, transparent 100%),
+    radial-gradient(circle 4px at 6px 9px, #FF40FF 98%, transparent 100%),
+    radial-gradient(circle 4px at 14px 4px, #FF40FF 98%, transparent 100%),
+    radial-gradient(circle 4px at 23px 4px, #FF40FF 98%, transparent 100%),
+    radial-gradient(circle 4px at 30px 9px, #FF40FF 98%, transparent 100%);
+}
+
+/* 上向き矢印 */
+.back-to-top::after {
+  content: "⬆";
+  position: absolute;
+  top: 5px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #FF40FF;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.back-to-top:hover {
+  opacity: 0.75;
+}
+
+/* =========================
+   スマートフォン用（600px以下）
+========================= */
+
+@media screen and (max-width: 600px) {
+
+  /* スライド全体 */
+  .hero {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* 文字・ボタンの配置 */
+  .hero-content {
+    width: 86%;
+    padding: 10px;
+  }
+
+  .hero-slide .hero-content {
+    top: 40%;
+  }
+
+  /* ピンクの文字ボックス */
+  .hero-text-box {
+    padding: 8px 20px;
+  }
+
+  /* 見出し */
+  .hero-content h1 {
+    font-size: clamp(24px, 6vw, 27px);
+    margin-bottom: 12px;
+  }
+
+  /* 説明文 */
+  .hero-content p {
+    font-size: 14px;
+    line-height: 1.2;
+    margin-bottom: 9px;
+  }
+
+  /* 1枚目の説明文 */
+  .hero-content p.hero-description {
+    font-size: 12px;
+    line-height: 1.2;
+    margin-bottom: 9px;
+  }
+
+  /* 案内ボタン */
+  .hero-button {
+    min-width: 0;
+    padding: 8px 20px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  /* 左右の矢印 */
+  .slide-arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 20px;
+  }
+  
+  .slide-arrow.prev {
+    left: 8px;
+  }
+
+  .slide-arrow.next {
+    right: 8px;
+  }
+
+  /* 横棒の位置 */
+  .slide-indicators {
+    bottom: 25px;
+  }
+
+  /* スライド画像 */
+  .hero-slide img {
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  /* ページタイトル帯 */
+  .page-heading {
+    padding: 15px 10px;
+  }
+
+  .page-heading h1 {
+    font-size: 20px;
+  }
+}
+
+/* PC：READ MOREボタンの位置調整 */
+@media screen and (min-width: 901px) {
+  .hero-button {
+    position: relative;
+    top: 75px;
+  }
+}
+
+/* PC：里親募集の手順リスト */
+@media screen and (min-width: 901px) {
+  .adoption-steps {
+    padding-left: 30px;
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  .adoption-steps li {
+    padding-left: 5px;
+  }
+}
+
+/* PC：リストの点と文章の間隔を調整 */
+@media screen and (min-width: 901px) {
+  .content-section ul {
+    display: inline-block;
+    text-align: left;
+    padding-left: 1.5em;
+  }
+
+  .content-section li {
+    padding-left: 3px;
+  }
+}
